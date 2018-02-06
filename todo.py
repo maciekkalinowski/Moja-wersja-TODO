@@ -1,3 +1,52 @@
+
+
+"""
+def drukuj():
+    
+
+    print('-- LISTA ZADAŃ DO ZROBIENIA --')
+    with open('ToDo.txt') as plik :
+        print(plik.read())
+
+def odczyt():
+    
+
+    file_cont = []
+    str_pom = ''
+    with open('ToDo.txt') as plik :
+        file_cont = plik.readlines()
+    for i in range(len(file_cont)):
+        str_pom = file_cont[i]
+        str_pom = str_pom[4:-1]
+        file_cont[i] = str_pom
+    return file_cont
+
+def zapis(temp_list):
+    
+
+    with open('ToDo.txt','w') as plik :
+        for p in range(len(temp_list)):
+            linijka = '{} - {}\n'.format(p,temp_list[p])
+            plik.write(linijka)
+
+
+def slownik(polecenie):
+    
+
+    if polecenie in ['dodaj','DODAJ','add','ADD']:
+        nowe_zadanie = input('Wpisz nowe zadanie: \n')
+        dodaj(lista, nowe_zadanie)
+        zapis(lista)
+    if polecenie in ['usun','USUN','del','DEL']:
+        elem = int(input('Podaj element do usuniecia: \n'))
+        usun(lista, elem)
+        zapis(lista)
+    if polecenie in ['done']:
+        done(lista)
+    return
+"""
+
+
 def dodaj(a, nowe_zadanie):
     """Dodaje nowy element do listy"""
 
@@ -17,41 +66,46 @@ def done(lista):
 
 
 def drukuj():
-    """Drukuje naglowek i zawartosc pliku ToDo.txt"""
+    """Drukuje naglowek i sformatowaną zawartosc pliku ToDo2.txt """
 
     print('-- LISTA ZADAŃ DO ZROBIENIA --')
-    with open('ToDo.txt') as plik :
-        print(plik.read())
+    i=0
+    with open('ToDo2.txt') as plik :
+        for linijka in plik:
+            linijka = '{} ----- {}'.format(i,linijka)
+            i += 1
+            print(linijka, end='')
+
 
 
 def odczyt():
-    """Wczytuje i formatuje zawartosc pliku ToDo.txt do listy i zwraca ta liste"""
+    """Wczytuje zawartosc pliku ToDo2.txt do listy i zwraca ta liste"""
 
     file_cont = []
     str_pom = ''
-    with open('ToDo.txt') as plik :
+    with open('ToDo2.txt') as plik :
         file_cont = plik.readlines()
-    for i in range(len(file_cont)):
-        str_pom = file_cont[i]
-        str_pom = str_pom[4:-1]
-        file_cont[i] = str_pom
     return file_cont
 
 
-def zapis(temp_list):
-    """Formatuje zawartosc listy i zapisuje do pliku ToDo.txt"""
 
-    with open('ToDo.txt','w') as plik :
+def zapis(temp_list):
+    """Zapisuje zawartosc listy do pliku ToDo2.txt"""
+
+    with open('ToDo2.txt','w') as plik :
         for p in range(len(temp_list)):
-            linijka = '{} - {}\n'.format(p,temp_list[p])
-            plik.write(linijka)
+            #linijka = temp_list[p]
+            plik.write(temp_list[p])
+
+
+
 
 
 def slownik(polecenie):
     """Odczytuje z klawiatury wpisane polecenie i je wykonuje jesli jest w slowniku"""
 
     if polecenie in ['dodaj','DODAJ','add','ADD']:
-        nowe_zadanie = input('Wpisz nowe zadanie: \n')
+        nowe_zadanie = input('Wpisz nowe zadanie: \n') +'\n'
         dodaj(lista, nowe_zadanie)
         zapis(lista)
     if polecenie in ['usun','USUN','del','DEL']:
@@ -63,9 +117,16 @@ def slownik(polecenie):
     return
 
 """------------------"""
+#lista = odczyt()
 lista = odczyt()
 polecenie = ''
 while polecenie not in ['EXIT','exit']:
     slownik(polecenie)
     drukuj()
     polecenie = input('dodaj, usun, EXIT: ')
+"""polecenie = ''
+while polecenie not in ['EXIT','exit']:
+    slownik(polecenie)
+    drukuj()
+    polecenie = input('dodaj, usun, EXIT: ')
+"""
